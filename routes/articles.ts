@@ -16,7 +16,9 @@ const getAll = async (ctx: RouterContext, next: any) => {
 }
 
 const createArticle = async (ctx: RouterContext, next: any) => {
-  let {title, fullText} = ctx.request.body;
+  let c: any = ctx.request.body;
+  let title = c.title;
+  let fullText = c.fullText;
   let newArticle = {title: title, fullText: fullText};
   articles.push(newArticle);
   ctx.status = 201;
