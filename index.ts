@@ -29,6 +29,6 @@ app.use(async (ctx: RouterContext, next: any) => {
     ctx.body = {err: err};
   }
   
-})
+});
 
 app.listen(10888);
