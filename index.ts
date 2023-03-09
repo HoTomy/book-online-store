@@ -19,10 +19,9 @@ router.get('/api/v1', welcomeAPI);*/
 
 app.use(logger());
 app.use(json());
+app.use(passport.initialize());
 //app.use(router.routes());
 app.use(articles.routes());
-
-app.use(passport.initialize());
 app.use(special.routes());
 
 app.use(async (ctx: RouterContext, next: any) => {
