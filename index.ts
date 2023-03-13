@@ -1,5 +1,5 @@
 import Koa from "koa";
-import /*Router, */ { RouterContext } from "koa-router";
+import Router, { RouterContext } from "koa-router";
 import logger from "koa-logger";
 import json from "koa-json";
 import passport from 'koa-passport';
@@ -7,6 +7,8 @@ import passport from 'koa-passport';
 import { router as articles } from "./routes/articles";
 import { router as special } from './routes/special';
 
+import serve from 'koa-static-folder';
+  
 const app: Koa = new Koa();
 //const router: Router = new Router();
 
@@ -16,17 +18,22 @@ const app: Koa = new Koa();
 }
 
 router.get('/api/v1', welcomeAPI);*/
+// For Document:
+app.use(serve('./docs'));
 
 app.use(logger());
 app.use(json());
 app.use(passport.initialize());
 //app.use(router.routes());
-app.use(articles.routes());
-app.use(special.routes());
+app.use(articles.middleware());
+app.use(special.middleware());
+
+
 
 app.use(async (ctx: RouterContext, next: any) => {
   try {
     await next();
+    console.log(ctx.status)
     if(ctx.status === 404){
       ctx.body = {err: "Resource not found"};
     }
