@@ -13,6 +13,8 @@ guessImports = true
 
 [env]
 XDG_CONFIG_HOME = "/home/runner/.config"
+PATH = "$REPL_HOME/node_modules/.bin:$REPL_HOME/.config/npm/node_global/bin"
+npm_config_prefix = "$REPL_HOME/.config/npm/node_global"
 
 [nix]
 channel = "stable-22_11"
@@ -27,3 +29,8 @@ pattern = "**/{*.ts,*.js,*.tsx,*.jsx}"
 
 [languages.typescript.languageServer]
 start = "typescript-language-server --stdio"
+
+[deployment]
+run = ["sh", "-c", "tsx index.ts"]
+deploymentTarget = "cloudrun"
+ignorePorts = false
